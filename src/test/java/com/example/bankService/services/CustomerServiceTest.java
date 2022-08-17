@@ -1,9 +1,6 @@
 package com.example.bankService.services;
 
-import com.example.bankService.dto.BillingRequestDto;
-import com.example.bankService.dto.BillingResponse;
-import com.example.bankService.dto.CustomerRequestDto;
-import com.example.bankService.dto.CustomerResponse;
+import com.example.bankService.dto.*;
 import com.example.bankService.models.Customer;
 import com.example.bankService.repositories.CustomerRepository;
 import lombok.AllArgsConstructor;
@@ -14,17 +11,22 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
 @SpringBootTest
 class CustomerServiceTest {
+    @Autowired
+    private InvoiceService invoiceService;
 
     @Autowired
     private  CustomerService customerService;
 
     @Autowired
     private CustomerRepository customerRepository;
+
 
     @BeforeEach
     void setUp() {
@@ -67,5 +69,25 @@ class CustomerServiceTest {
         BillingResponse response = customerService.createBilling(requestDto);
         assertNotNull(response);
     }
+//    @Test
+//    @DisplayName("Retrieve all customers")
+//    void testThatCanAllCustomerCanBeRetrieved(){
+//        List<Customer> customerList = customerService.findAllCustomer();
+//        assertEquals(3,customerRepository.count());
+//        assertEquals("[Customer(id=3, firstname=Florence, lastName=Aniyikaye, email=florence.aniyikaye@yahoo), Customer(id=4, firstname=Florence, lastName=Aniyikaye, email=florence.aniyikaye@yahoo), Customer(id=5, firstname=Sikiru, lastName=John, email=sikiru.aniyikaye@yahoo)]",customerList.toString());
+//
+//    }
+    @Test
+    @DisplayName("Invoice can be created")
+    void  testThatInvoiceCanBeCreated(){
+        InvoiceRequestDto invoiceRequestDto = new InvoiceRequestDto();
+        invoiceRequestDto.setFirstName("aniyi");
+        invoiceRequestDto.setLastName("james");
+        invoiceRequestDto.setEmail("aniyikat@gmail.com");
+        InvoiceResponse response = invoiceService.createInvoice(invoiceRequestDto);
+        assertNotNull(response);
+
+    }
+
 
 }

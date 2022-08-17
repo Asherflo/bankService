@@ -1,16 +1,15 @@
 package com.example.bankService.services;
 
-import com.example.bankService.dto.BillingRequestDto;
-import com.example.bankService.dto.BillingResponse;
-import com.example.bankService.dto.CustomerRequestDto;
-import com.example.bankService.dto.CustomerResponse;
+import com.example.bankService.dto.*;
 import com.example.bankService.models.BillingDetails;
 import com.example.bankService.models.Customer;
 import com.example.bankService.repositories.BillingDetailsRepository;
 import com.example.bankService.repositories.CustomerRepository;
+import com.example.bankService.repositories.InvoiceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -20,6 +19,7 @@ public class CustomerServiceImpl implements CustomerService{
 
     private final CustomerRepository customerRepository;
     private final BillingDetailsRepository billingDetailsRepository;
+     private final InvoiceRepository invoiceRepository;
     @Override
     public CustomerResponse createCustomer(CustomerRequestDto customerRequestDto) {
         Customer customer = new Customer();
@@ -60,5 +60,21 @@ public class CustomerServiceImpl implements CustomerService{
         response.setBillingDetails(saveBillingDetails);
         return response;
 
+    }
+
+    @Override
+    public List<Customer> findAllCustomer() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public InvoiceResponse toString(InvoiceRequestDto invoiceRequestDto) {
+        return null;
+    }
+
+
+    @Override
+    public String toString() {
+        return invoiceRepository.toString();
     }
 }
